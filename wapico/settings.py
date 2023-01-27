@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django_extensions',
     "debug_toolbar",
     "bootstrap4",
-    
+    "wapico.whatsapp",
+    'wapico.schedule',
 ]
 
 MIDDLEWARE = [

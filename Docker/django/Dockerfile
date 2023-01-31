@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN mkdir /app
-COPY wapico/ /app/
+COPY wapico/ /app/wapico/
 RUN mkdir /app/static/
 COPY pyproject.toml /app
 COPY README.md manage.py /app/

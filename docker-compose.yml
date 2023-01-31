@@ -39,7 +39,9 @@ services:
             - 6379
     celery:
         restart: always
-        build: .
+        build:
+            context: .
+            dockerfile: ./Docker/celery/Dockerfile
         command: celery -A wapico.task worker -l info
         volumes:
             - ./app:/app

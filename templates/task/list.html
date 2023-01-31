@@ -1,0 +1,10 @@
+<h1 class="my-4"> {{ header_list }}</h1>
+<table class = "table table-striped">
+        {% for task in task_results %}
+        <tr>
+            <td><a href = "{% url 'task_detail' task.0 %}">{{ task.1 }}</a></td>
+            <td>{{ task.2 }}</td>
+            <td>{{ task.3 }}</td>
+        </tr>
+        {% endfor %}
+</table>

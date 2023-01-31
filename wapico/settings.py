@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     "wapico.whatsapp",
     'wapico.schedule',
+    'wapico.task',
     'django_celery_beat',
     'django_celery_results',
 ]

@@ -21,9 +21,10 @@ def make_result(time_1=60, time_2=70):
 
             resp = requests.post(url=url)
             delay = randint(time_1, time_2)
-            result.append({
-                'operation': f'{obj.phone_number} -> {obj_send.phone_number} with delay {delay}',
-                'res': json.loads(resp.content)
-            })
+            # result.append({
+            #     'operation': f'{obj.phone_number} -> {obj_send.phone_number} with delay {delay}',
+            #     'res': json.loads(resp.content)
+            # })
+            result.append(resp.json())
             # sleep(delay)
     return result

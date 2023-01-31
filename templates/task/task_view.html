@@ -4,7 +4,7 @@
 {% load extras %}
 {% block content %}
     {% csrf_token %}
-{#        <h1 class="my-4"> {{ header }}</h1>#}
+        <h1 class="my-4"> {{ header }}</h1>
 {#        <div class = "card">#}
 {#            <div class="card-header">#}
 {#                <h2>{{ task.name }}</h2>#}
@@ -23,7 +23,7 @@
             </div>
             <div class="row p-2">
                 <div class="col"> result_data </div>
-                <div class="col">{{ taskresult.result }}</div>
+                <div class="col">{{ taskresult.result}}</div>
             </div>
         </div>
 {% endblock %}

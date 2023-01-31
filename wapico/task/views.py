@@ -8,9 +8,12 @@ from django_celery_results.models import TaskResult
 
 class SendView(FormView):
     form_class = SendForm
-    template_name = "send.html"
+    template_name = "task/send.html"
     success_url = reverse_lazy('root')
-
+    extra_context = {
+        'header': 'Task send',
+        'header_list': "Task list",
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -18,6 +21,7 @@ class SendView(FormView):
             'task_results': TaskResult.objects.values_list(
                 'id',
                 'task_id',
+                'status',
                 'date_created'
             )
         })
@@ -35,6 +39,4 @@ class SendView(FormView):
 
 class TaskResultView(DetailView):
     model = TaskResult
-    template_name = "task_view.html"
-    
-
+    template_name = "task/task_view.html"

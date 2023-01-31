@@ -48,8 +48,6 @@ services:
         depends_on:
             - pgdatabase
             - redis
-            - django
-
 
 volumes:
     pgdata:

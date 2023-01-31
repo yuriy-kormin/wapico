@@ -5,10 +5,6 @@ services:
         build:
             context: .
             dockerfile: ./Docker/postgres/Dockerfile
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=postgres
         expose:
             - 5432
         restart: always

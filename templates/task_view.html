@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% load extras %}
+{% block content %}
+    {% csrf_token %}
+{#        <h1 class="my-4"> {{ header }}</h1>#}
+{#        <div class = "card">#}
+{#            <div class="card-header">#}
+{#                <h2>{{ task.name }}</h2>#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <p>{{ task.description }}</p>#}
+{#            <hr>#}
+        <div class="container">
+            <div class="row p-2">
+                <div class="col"> id </div>
+                <div class="col">{{ taskresult.id }}</div>
+            </div>
+            <div class="row p-2">
+                <div class="col"> task_id </div>
+                <div class="col">{{ taskresult.task_id }}</div>
+            </div>
+            <div class="row p-2">
+                <div class="col"> result_data </div>
+                <div class="col">{{ taskresult.result }}</div>
+            </div>
+        </div>
+{% endblock %}

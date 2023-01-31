@@ -1,0 +1,21 @@
+<html lang="en">>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    {% load i18n %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery=True %}
+    {% bootstrap_jquery %}
+    <title>Feedback</title>
+</head>
+<body>
+{% include "nav.html" %}
+<main role="main" class="container">
+    <div class="my-3 mt-3 p-3 bg-white rounded shadow-sm overflow-auto">{% bootstrap_messages %}</div>
+
+    {% block content %}
+    {% endblock content %}
+</main>
+</body>
+</html>

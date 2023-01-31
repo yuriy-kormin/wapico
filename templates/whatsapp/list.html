@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% block content %}
+   <h1 class="my-4"> {{ marks }}</h1>
+    <a class="nav-link" href="{% url "instance_create" %}">{% translate "Create instance" %}</a>
+    <table class = "table table-striped">
+        <tr>
+            <th>{% translate "name" %}</th>
+            <th>{% translate "instance_id" %}</th>
+            <th>{% translate "phone_number" %}</th>
+            <th>{% translate "token" %}</th>
+            <th></th>
+        </tr>
+        {% for instance in object_list %}
+            <tr>
+                <td> <a href ="{% url 'instance_update' instance.id %}">{{instance.name}}</a></td>
+                <td> {{instance.instance}}</td>
+                <td> {{instance.phone_number}}</td>
+                <td> {{instance.token}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

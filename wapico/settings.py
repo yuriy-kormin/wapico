@@ -33,7 +33,9 @@ DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +50,8 @@ INSTALLED_APPS = [
     "bootstrap4",
     "wapico.whatsapp",
     'wapico.schedule',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -140,4 +144,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = os.getenv('CELERY_DATABASE_RESULT')
+# CELERY_RESULT_BACKEND = os.getenv('CELERY_DATABASE_RESULT')
+# CELERY_RESULT_BACKEND = "redis://localhost:6379"
+# CELERY_RESULT_BACKEND = 'db+postgresql://django-db'
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_TIMEZONE = "Asia/Tbilisi"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

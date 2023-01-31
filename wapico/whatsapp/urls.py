@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import WhatsappCreateView, WhatsappListView,WhatsappUpdateView
 
 urlpatterns = [
-    path('', WhatsappListView.as_view(), name='schedule_list'),
-    path('create/', WhatsappCreateView.as_view(), name='schedule_create'),
+    path('', WhatsappListView.as_view(), name='instance_list'),
+    path('create/', WhatsappCreateView.as_view(), name='instance_create'),
+    path('<int:pk>/', WhatsappUpdateView.as_view(), name='instance_update'),
 ]

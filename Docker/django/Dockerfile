@@ -11,7 +11,7 @@ COPY README.md manage.py /app/
 COPY Docker/django/docker-entrypoint.sh /app/
 
 ENV CELERY_DATABASE_RESULT='db+postgresql+psycopg2://wapico:wapico@localhost:5435/wapico'
-ENV DATABASE_URL=postgres://wapico:wapico@pgdatabase:5435/wapico
+ENV DATABASE_URL=postgres://wapico:wapico@pgdatabase:5432/wapico
 ENV DJANGO_SECRET='%ygz@y(^ma*_h_rp92r#srrir+zpiau2i$#740ju$)yyr-dz_n'
 ENV DEBUG=True
 #ENV CELERY_BROKER_URL="redis://redis:6379"

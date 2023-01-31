@@ -39,9 +39,10 @@ services:
             - 6379
     celery:
         restart: always
-        build:
-            context: .
-            dockerfile: ./Docker/celery/Dockerfile
+#        build:
+#            context: .
+#            dockerfile: ./Docker/celery/Dockerfile
+        image: celery
         command: celery -A wapico.task worker -l info
         volumes:
             - ./app:/app
@@ -50,6 +51,7 @@ services:
             - DB_NAME=wapico
             - DB_USER=wapico
             - DB_PASS=wapico
+            - CELERY_BROKER_URL=redis://redis:6379
         depends_on:
             - pgdatabase
             - redis

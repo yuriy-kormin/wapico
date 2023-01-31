@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, DetailView
 from .forms import SendForm
 from django.contrib import messages
-from .tasks import make_result
+from wapico.tasks import make_result
 from django_celery_results.models import TaskResult
 
 

@@ -13,7 +13,7 @@ services:
             - 5432
         restart: always
         volumes:
-            - pgdata:/var/lib/postgresql/data/:rw
+            - pgdatabase:/var/lib/postgresql/data/:rw
     django:
         build:
             context: .
@@ -24,7 +24,7 @@ services:
         - pgdatabase
         - celery
         volumes:
-            - ./dja:/app
+            - django:/app:rw
     nginx:
         build:
             context: .
@@ -39,13 +39,11 @@ services:
             - 6379
     celery:
         restart: always
-#        build:
-#            context: .
-#            dockerfile: ./Docker/celery/Dockerfile
-        image: celery
-        command: celery -A wapico.task worker -l info
+        build:
+            context: .
+            dockerfile: ./Docker/celery/Dockerfile
         volumes:
-            - ./app:/app
+            - django:/app:rw
         environment:
             - DB_HOST=pgdatabase
             - DB_NAME=wapico
@@ -57,4 +55,5 @@ services:
             - redis
 
 volumes:
-    pgdata:
+    pgdatabase:
+    django:

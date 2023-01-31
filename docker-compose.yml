@@ -33,10 +33,13 @@ services:
             - 80:80
         depends_on:
             - django
+    redis:
+        image: redis:alpine
     celery:
         restart: always
         build:
             context: .
+            dockerfile: ./Docker/django/Dockerfile
         command: celery -A wapico.task worker -l info
         volumes:
             - ./app:/app

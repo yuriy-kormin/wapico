@@ -11,8 +11,8 @@ COPY README.md manage.py /app/
 COPY Docker/celery/celery-worker.sh /app/
 
 ARG CELERY_DATABASE_RESULT='db+postgresql+psycopg2://wapico:wapico@localhost:5435/wapico'
-ARG DATABASE_URL=postgres://wapico:wapico@pgdatabase:5435/wapico
-#ARG DJANGO_SECRET='%ygz@y(^ma*_h_rp92r#srrir+zpiau2i$#740ju$)yyr-dz_n'
+ARG DATABASE_URL=postgres://wapico:wapico@pgdatabase:5432/wapico
+ARG DJANGO_SECRET='%ygz@y(^ma*_h_rp92r#srrir+zpiau2i$#740ju$)yyr-dz_n'
 ARG DEBUG=True
 ARG CELERY_BROKER_URL="redis://redis:6379"
 

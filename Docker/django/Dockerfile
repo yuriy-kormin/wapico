@@ -9,6 +9,7 @@ RUN mkdir /app/static/
 COPY pyproject.toml /app
 COPY README.md manage.py /app/
 COPY Docker/django/docker-entrypoint.sh /app/
+COPY Docker/celery/celery-worker.sh /app/
 
 ENV CELERY_DATABASE_RESULT='db+postgresql+psycopg2://wapico:wapico@localhost:5435/wapico'
 ENV DATABASE_URL=postgres://wapico:wapico@pgdatabase:5432/wapico

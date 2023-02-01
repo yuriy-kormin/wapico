@@ -8,7 +8,7 @@ COPY wapico/ /app/wapico/
 RUN mkdir /app/static/
 COPY pyproject.toml /app
 COPY README.md manage.py /app/
-COPY Docker/django/celery-worker.sh /app/
+COPY Docker/celery/celery-worker.sh /app/
 
 ARG CELERY_DATABASE_RESULT='db+postgresql+psycopg2://wapico:wapico@localhost:5435/wapico'
 ARG DATABASE_URL=postgres://wapico:wapico@pgdatabase:5435/wapico

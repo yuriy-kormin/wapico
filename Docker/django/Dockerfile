@@ -14,7 +14,7 @@ ENV CELERY_DATABASE_RESULT='db+postgresql+psycopg2://wapico:wapico@localhost:543
 ENV DATABASE_URL=postgres://wapico:wapico@pgdatabase:5432/wapico
 ENV DJANGO_SECRET='%ygz@y(^ma*_h_rp92r#srrir+zpiau2i$#740ju$)yyr-dz_n'
 ENV DEBUG=True
-#ENV CELERY_BROKER_URL="redis://redis:6379"
+ENV CELERY_BROKER_URL="redis://redis:6379"
 
 WORKDIR /app
 RUN apt-get update

@@ -17,10 +17,10 @@ ARG DEBUG=True
 ARG CELERY_BROKER_URL="redis://redis:6379"
 
 WORKDIR /app
-#RUN apt-get update
+RUN apt-get update
 #
-#RUN pip3 install poetry
-#RUN poetry config virtualenvs.create false
-#RUN poetry install
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install
 
 CMD ["./celery-worker.sh"]

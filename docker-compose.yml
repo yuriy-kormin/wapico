@@ -30,6 +30,8 @@ services:
     celery:
         restart: always
         image: wap
+        env_file:
+            - Docker/django/env
         depends_on:
             - pgdatabase
             - redis

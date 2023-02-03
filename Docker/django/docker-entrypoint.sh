@@ -7,10 +7,10 @@
 
 apt-get update
 
+cd /app
 pip3 install poetry
 poetry config virtualenvs.create false
 poetry install
-cd /app
 # Apply database migrations
 echo "Apply database migrations"
 python manage.py migrate --noinput

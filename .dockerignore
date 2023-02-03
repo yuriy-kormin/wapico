@@ -4,5 +4,6 @@
 !wapico/*
 !manage.py
 !Docker/django/docker-entrypoint.sh
-!Docker/celery/celery-worker.sh
-!Docker/postgres/
+!Docker/django/run_celery_worker.sh
+!Docker/postgres/*
+!Docker/nginx/*

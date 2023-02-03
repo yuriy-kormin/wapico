@@ -1,0 +1,3 @@
+POSTGRES_DB=wapico
+POSTGRES_USER=wapico
+POSTGRES_PASSWORD=wapico

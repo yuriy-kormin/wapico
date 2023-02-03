@@ -4,7 +4,7 @@ services:
     pgdatabase:
         image: postgres:15.1-alpine
         env_file:
-            - ./Docker/postgres/.env
+            - Docker/postgres/env
         expose:
             - 5432
         restart: always
@@ -16,21 +16,13 @@ services:
             context: .
             dockerfile: ./Docker/django/Dockerfile
         env_file:
-            - ./Docker/django/.env
+            - Docker/django/env
         expose:
             - 8000
         depends_on:
             - pgdatabase
             - celery
-        command: gunicorn wapico.wsgi:application --bind 0.0.0.0:8000
-    nginx:
-        build:
-            context: .
-            dockerfile: ./Docker/nginx/Dockerfile
-        ports:
-            - 80:80
-        depends_on:
-            - django
+        command: /app/Docker/django/run_django.sh
     redis:
         image: redis
         expose:
@@ -41,6 +33,15 @@ services:
         depends_on:
             - pgdatabase
             - redis
-        command: celery -A wapico.celery worker -l info
+        command: /app/Docker/django/run_celery_worker.sh
+    nginx:
+        build:
+            context: .
+            dockerfile: ./Docker/nginx/Dockerfile
+        ports:
+            - 80:80
+        depends_on:
+            - django
+            - celery
 volumes:
     pgdatabase:

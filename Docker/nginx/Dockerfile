@@ -1,5 +1,4 @@
 FROM nginx:latest
 
 RUN rm /etc/nginx/conf.d/default.conf
-COPY /Docker/nginx/nginx.conf /etc/nginx/conf.d
-COPY /Docker/nginx/.htpasswd /etc/nginx/
+COPY /Docker/nginx/nginx.conf /Docker/nginx/.htpasswd /etc/nginx/conf.d/

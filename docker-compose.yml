@@ -19,8 +19,6 @@ services:
         depends_on:
         - pgdatabase
         - celery
-#        volumes:
-#            - django:/app:rw
     nginx:
         build:
             context: .
@@ -38,18 +36,9 @@ services:
         build:
             context: .
             dockerfile: ./Docker/celery/Dockerfile
-#        volumes:
-#            - django:/app:rw
-        environment:
-            - DB_HOST=pgdatabase
-            - DB_NAME=wapico
-            - DB_USER=wapico
-            - DB_PASS=wapico
-            - CELERY_BROKER_URL=redis://redis:6379
         depends_on:
             - pgdatabase
             - redis
 
 volumes:
     pgdatabase:
-#    django:

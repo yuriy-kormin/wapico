@@ -22,9 +22,9 @@ services:
 #        volumes:
 #            - django:/app:rw
     nginx:
-#        build:
-#            context: .
-#            dockerfile: ./Docker/nginx/Dockerfile
+        build:
+            context: .
+            dockerfile: ./Docker/nginx/Dockerfile
         ports:
             - 80:80
         depends_on:

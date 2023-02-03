@@ -13,7 +13,7 @@ poetry install
 
 # Apply database migrations
 echo "Apply database migrations"
-python manage.py migrate --noinput
+python /app/manage.py migrate --noinput
 
 #collect static
-python manage.py collectstatic --noinput
+python /app/manage.py collectstatic --noinput

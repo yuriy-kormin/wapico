@@ -22,9 +22,15 @@ services:
 #        volumes:
 #            - django:/app:rw
     nginx:
-        build:
-            context: .
-            dockerfile: ./Docker/nginx/Dockerfile
+#        build:
+#            context: .
+#            dockerfile: ./Docker/nginx/Dockerfile
+        image: nginx
+        environment:
+            - BASIC_USERNAME = tork
+            - BASIC_PASSWORD = issledur
+            - FORWARD_HOST = django
+            - FORWARD_PORT = 8000
         ports:
             - 80:80
         depends_on:

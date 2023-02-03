@@ -1,8 +1,9 @@
+from celery.result import AsyncResult
 from django.urls import reverse_lazy
 from django.views.generic import FormView, DetailView
 from .forms import SendForm
 from django.contrib import messages
-from wapico.tasks import make_result
+from wapico.tasks import process_task
 from django_celery_results.models import TaskResult
 
 
@@ -18,7 +19,8 @@ class SendView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'task_results': TaskResult.objects.values_list(
+            'task_results': TaskResult.objects.filter(task_name='task').
+            values_list(
                 'id',
                 'task_id',
                 'status',
@@ -28,11 +30,12 @@ class SendView(FormView):
         return context
 
     def form_valid(self, form):
-        messages.info(
-            self.request, make_result.delay(
+        result = process_task.delay(
                 form.cleaned_data['time1'],
                 form.cleaned_data['time2'],
             )
+        messages.info(
+            self.request, result.get()
         )
         return super().form_valid(form)
 
@@ -40,3 +43,16 @@ class SendView(FormView):
 class TaskResultView(DetailView):
     model = TaskResult
     template_name = "task/task_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj_id = self.kwargs.get('pk')
+        obj = TaskResult.objects.get(pk = obj_id)
+        taskid = obj.task_id
+        result = AsyncResult(taskid)
+        result.children[0].save()
+        context.update({
+            'full_results': list(result.collect())[1][1][0],
+            'children': result.children
+        })
+        return context

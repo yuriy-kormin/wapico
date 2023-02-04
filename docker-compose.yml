@@ -10,8 +10,8 @@ services:
         restart: always
         volumes:
             - pgdatabase:/var/lib/postgresql/data/:rw
-    django:
-        image: wap
+    djangoapp:
+        image: djangoapp
         build:
             context: .
             dockerfile: ./Docker/django/Dockerfile
@@ -29,7 +29,7 @@ services:
             - 6379
     celery:
         restart: always
-        image: wap
+        image: djangoapp
         env_file:
             - Docker/django/env
         depends_on:

@@ -1,3 +1,5 @@
+import re
+from wapico.var.models import Var
 from django.db import models
 
 
@@ -9,3 +11,19 @@ class Whatsapp(models.Model):
     instance = models.CharField(max_length=30, null=False, default="")
     phone_number = models.CharField(max_length=30, null=False, default="")
     token = models.CharField(max_length=50, null=False, default="")
+
+    def get_url(self):
+        url = Var.objects.get(name='format').value
+        format_vars = set(re.findall("{{\w*}}", url))
+        for var in format_vars:
+            var_name = var[2:-2]
+            if var_name in Var.get_global_vars():
+                url = re.sub(var, Var.get_value(var_name), url)
+            elif var_name in self.get_fields_names():
+                url = re.sub(var, getattr(self, var_name), url)
+            else:
+                ValueError('error in global "format" setting')
+        return url
+
+    def get_fields_names(self):
+        return [field.name for field in self.__class__._meta.get_fields()]

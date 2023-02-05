@@ -1,1 +1,34 @@
-[{"model": "var.var", "pk": 1, "fields": {"name": "base_url", "value": "http://127.0.0.1:8080/"}}]
+[
+  {
+    "model": "var.var",
+    "pk": 1,
+    "fields": {
+      "name": "base_url",
+      "value": "http://127.0.0.1:8080/"
+    }
+  },
+  {
+    "model": "var.var",
+    "pk": 2,
+    "fields": {
+      "name": "format",
+      "value": "{{base_url}}/?{{name}}"
+    }
+  },
+  {
+    "model": "var.var",
+    "pk": 3,
+    "fields": {
+      "name": "phone_number",
+      "value": "{{phone_number}}"
+    }
+  },
+  {
+    "model": "var.var",
+    "pk": 4,
+    "fields": {
+      "name": "message",
+      "value": "{{message}}"
+    }
+  }
+]

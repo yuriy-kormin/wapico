@@ -14,14 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-import debug_toolbar
+from django.urls import path
+from .views import VarListView, VarUpdateView, VarCreateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('wapico.task.urls')),
-    path('whatsapp/', include('wapico.whatsapp.urls')),
-    path('var/', include('wapico.var.urls')),
-    path('__debug__/', include(debug_toolbar.urls)),
-
+    path('', VarListView.as_view(), name='var_list'),
+    path('<int:pk>/update/', VarUpdateView.as_view(), name='var_update'),
+    path('create/', VarCreateView.as_view(), name='var_create'),
+    # path('<int:pk>/', WhatsappUpdateView.as_view(), name='instance_update'),
 ]

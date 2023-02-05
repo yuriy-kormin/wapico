@@ -19,6 +19,7 @@ class WhatsappCreateView(CreateView, SuccessMessageMixin):
 class WhatsappListView(ListView):
     model = Whatsapp
     template_name = 'whatsapp/list.html'
+    queryset = Whatsapp.objects.all().order_by('id')
 
 
 class WhatsappUpdateView(UpdateView, SuccessMessageMixin):

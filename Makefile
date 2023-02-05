@@ -14,4 +14,6 @@ test:
 install:
 	poetry install
 lint:
-	poetry run flake8 territory_sectors --exclude migrations
+	poetry run flake8 wapico --exclude migrations
+celery:
+    celery -A wapico.celery worker -l INFO --concurrency=500 --pool=eventlet

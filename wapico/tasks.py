@@ -1,15 +1,21 @@
 # import json
+
+import re
 from random import randint, sample
 from celery import shared_task, group
 from celery.result import AsyncResult
 
+from faker import Faker
 from wapico.whatsapp.models import Whatsapp
+from wapico.var.models import Var
 from wapico import celery_app as app
 import requests
 from time import sleep
 
 # BASE_URL = 'https://ec170df6-51bf-477c-9423-660c26c877a0.mock.pstmn.io/send.php'
 BASE_URL = 'http://127.0.0.1:8080/'
+
+faker = Faker('ru-Ru')
 
 
 # @app.task(name ='simple')
@@ -18,13 +24,28 @@ def add(x, y):
     return x + y
 
 
+def compile_url(url, phone_to):
+    for var in Var.GENERATED_VARS:
+        if var == 'message':
+            message = faker.text(Var.FAKER_TEXT_LEN)
+            url = re.sub('{{message}}', message, url)
+        elif var == 'phone_number':
+            url = re.sub('{{phone_number}}', phone_to, url)
+        else:
+            raise ValueError(f'parameter {var} did not set')
+    return url
+
+
 def make_request(whatsapp_id_from, whatsapp_id_to):
     instance_to = Whatsapp.objects.get(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
     # url = f'{BASE_URL}?number={instance_to.phone_number}' \
     #       f'&type=text&message={{здравствуйте}}&instance_id=' \
     #       f'{instance_from.instance}&access_token={instance_from.token}'
-    url = f'{BASE_URL}?f={instance_from.id}&t={instance_to.id}'
+    url = compile_url(
+        instance_from.get_url(),
+        instance_to.phone_number
+    )
     return requests.post(url=url).text
 
 
@@ -52,7 +73,7 @@ def process_task(*time_delta):
             v,
             ids,
             # randint(*time_delta)*i,
-            5*i,
+            5 * i,
             time_delta
         ) for i, v in enumerate(ids)
     ])

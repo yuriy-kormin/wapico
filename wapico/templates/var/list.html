@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% block content %}
+   <h1 class="my-4"> {{ header }}</h1>
+    <a class="nav-link" href="{% url "var_create" %}">{% translate "Create var" %}</a>
+    <table class = "table table-striped">
+        {% for var in object_list %}
+        <tr>
+            <td><a href = "{% url 'var_update' var.id %}">{{ var.name }}</a></td>
+            <td>{{ var.value }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% endblock %}

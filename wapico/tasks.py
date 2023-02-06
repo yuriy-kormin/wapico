@@ -35,8 +35,8 @@ def compile_url(url, phone_to):
             raise ValueError(f'parameter {var} did not set')
     return url
 
-
-def make_request(whatsapp_id_from, whatsapp_id_to):
+@shared_task(name = 'request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True, retry_kwargs={'max_retries': 5})
+def make_request(self, whatsapp_id_from, whatsapp_id_to):
     instance_to = Whatsapp.objects.get(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
     # url = f'{BASE_URL}?number={instance_to.phone_number}' \
@@ -46,10 +46,15 @@ def make_request(whatsapp_id_from, whatsapp_id_to):
         instance_from.get_url(),
         instance_to.phone_number
     )
-    return requests.post(url=url).text
+    try:
+        response = requests.post(url=url)
+    except:
+        raise Exception()
+    if response.status_code != 200:
+        raise Exception()
+    return response.text
 
 
-# @app.task(name='make dialog')
 @app.task(name='group')
 def process_group(id_from, ids, delay, time_delta):
     sleep(delay)
@@ -72,18 +77,12 @@ def process_task(*time_delta):
         process_group.s(
             v,
             ids,
-            # randint(*time_delta)*i,
             5 * i,
             time_delta
         ) for i, v in enumerate(ids)
     ])
 
     result.apply_async(add_to_parent=True)
-    # result.apply_async(countdown=20)
-
-    # while not result.ready():
-    #     sleep(1)
-    # result.
     return result
 
 # AsyncResult('405fd771-a055-4cc5-a82f-d9ae917fee8c')

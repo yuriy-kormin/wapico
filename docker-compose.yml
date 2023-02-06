@@ -43,7 +43,7 @@ services:
         ports:
             - 80:80
         depends_on:
-            - django
+            - djangoapp
             - celery
 volumes:
     pgdatabase:

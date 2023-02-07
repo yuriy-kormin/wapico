@@ -19,9 +19,6 @@ faker = Faker('ru-Ru')
 
 
 # @app.task(name ='simple')
-@shared_task()
-def add(x, y):
-    return x + y
 
 
 def compile_url(url, phone_to):
@@ -35,14 +32,13 @@ def compile_url(url, phone_to):
             raise ValueError(f'parameter {var} did not set')
     return url
 
-@shared_task(name = 'request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True, retry_kwargs={'max_retries': 5})
-def make_request(self, whatsapp_id_from, whatsapp_id_to, delay):
-    sleep(delay)
+
+# @shared_task(name='request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True,
+#              retry_kwargs={'max_retries': 5})
+def make_request(whatsapp_id_from, whatsapp_id_to): #, order_pos, time_delta):
+    # sleep(order_pos * randint(*time_delta))
     instance_to = Whatsapp.objects.get(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
-    # url = f'{BASE_URL}?number={instance_to.phone_number}' \
-    #       f'&type=text&message={{здравствуйте}}&instance_id=' \
-    #       f'{instance_from.instance}&access_token={instance_from.token}'
     url = compile_url(
         instance_from.get_url(),
         instance_to.phone_number
@@ -57,28 +53,29 @@ def make_request(self, whatsapp_id_from, whatsapp_id_to, delay):
 
 
 @app.task(name='group')
-def process_group(id_from, ids, delay, time_delta):
-    sleep(delay)
-
-    result = group([
-        make_request.s(
-            id_from,
-            v,
-            5 * i,
-        ) for i, v in enumerate(ids) if v != id_from
-    ])
-
-    result.apply_async(add_to_parent=True)
-
+def process_group(id_from, ids, order_pos, time_delta):
+    result = []
+    sleep(order_pos * randint(*time_delta))
+    for id_to in sample(ids, len(ids)):
+        if id_to != id_from:
+            result.append(
+                make_request(id_from, id_to)
+            )
+            sleep(randint(*time_delta))
     return result
+    # sleep(order_pos * randint(*time_delta))
+    # result = group([
+    #     make_request.s(
+    #         whatsapp_id_from=id_from,
+    #         whatsapp_id_to=v,
+    #         order_pos=i+1,
+    #         time_delta=time_delta,
+    #     ) for i, v in enumerate(ids) if v != id_from
+    # ])
+    #
+    # result.apply_async(add_to_parent=True)
 
-
-    # # responses = []
-    # for id in sample(ids, len(ids)):
-    #     if id != id_from:
-    #         responses.append(make_request(id_from, id))
-    #         sleep(randint(*time_delta))
-    # return responses
+    # return result
 
 
 @shared_task(name='task')
@@ -90,10 +87,10 @@ def process_task(*time_delta):
 
     result = group([
         process_group.s(
-            v,
-            ids,
-            5 * i,
-            time_delta
+            id_from=v,
+            ids=ids,
+            order_pos=i,
+            time_delta=time_delta
         ) for i, v in enumerate(ids)
     ])
 

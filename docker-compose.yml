@@ -11,10 +11,10 @@ services:
         volumes:
             - pgdatabase:/var/lib/postgresql/data/:rw
     djangoapp:
-        image: djangoapp
         build:
             context: .
             dockerfile: ./Docker/django/Dockerfile
+        image: djangoapp
         env_file:
             - Docker/django/env
         expose:
@@ -23,6 +23,7 @@ services:
             - pgdatabase
             - celery
         command: /app/Docker/django/run_django.sh
+#        command: /bin/sh
     redis:
         image: redis
         expose:

@@ -1,4 +1,6 @@
-FROM python:3.11.1-alpine3.17
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 COPY . /app/
 RUN /app/Docker/django/docker-entrypoint.sh

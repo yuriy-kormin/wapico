@@ -23,7 +23,6 @@ services:
             - pgdatabase
             - celery
         command: /app/Docker/django/run_django.sh
-#        command: /bin/sh
     redis:
         image: redis
         expose:

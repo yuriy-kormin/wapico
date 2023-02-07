@@ -36,7 +36,8 @@ def compile_url(url, phone_to):
     return url
 
 @shared_task(name = 'request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True, retry_kwargs={'max_retries': 5})
-def make_request(self, whatsapp_id_from, whatsapp_id_to):
+def make_request(self, whatsapp_id_from, whatsapp_id_to, delay):
+    sleep(delay)
     instance_to = Whatsapp.objects.get(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
     # url = f'{BASE_URL}?number={instance_to.phone_number}' \
@@ -58,12 +59,26 @@ def make_request(self, whatsapp_id_from, whatsapp_id_to):
 @app.task(name='group')
 def process_group(id_from, ids, delay, time_delta):
     sleep(delay)
-    responses = []
-    for id in sample(ids, len(ids)):
-        if id != id_from:
-            responses.append(make_request(id_from, id))
-            sleep(randint(*time_delta))
-    return responses
+
+    result = group([
+        make_request.s(
+            id_from,
+            v,
+            5 * i,
+        ) for i, v in enumerate(ids) if v != id_from
+    ])
+
+    result.apply_async(add_to_parent=True)
+
+    return result
+
+
+    # # responses = []
+    # for id in sample(ids, len(ids)):
+    #     if id != id_from:
+    #         responses.append(make_request(id_from, id))
+    #         sleep(randint(*time_delta))
+    # return responses
 
 
 @shared_task(name='task')

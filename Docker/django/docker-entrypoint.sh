@@ -5,7 +5,7 @@
 #### planning to write initadmin  ####
 ######################################
 
-apt-get update
+#apt-get update
 
 mkdir -p /app/wapico/static
 cd /app

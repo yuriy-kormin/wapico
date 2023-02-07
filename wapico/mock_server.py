@@ -6,8 +6,9 @@ import logging
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.wfile.write(json.dumps("{x:1}"))
+        # self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps({"x": 1, "y": 12}).encode())
         self.end_headers()
 
     def do_GET(self):

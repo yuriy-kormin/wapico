@@ -19,6 +19,7 @@ class SendView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
+            # 'task_results': TaskResult.objects.all()
             'task_results': TaskResult.objects.filter(task_name='task').
             values_list(
                 'id',
@@ -50,9 +51,9 @@ class TaskResultView(DetailView):
         obj = TaskResult.objects.get(pk = obj_id)
         taskid = obj.task_id
         result = AsyncResult(taskid)
-        result.children[0].save()
+        # result.save()
         context.update({
-            'full_results': list(result.collect())[1][1][0],
+            'full_results': list(result.collect()),
             'children': result.children
         })
         return context

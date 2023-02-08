@@ -20,6 +20,9 @@ class WhatsappListView(ListView):
     model = Whatsapp
     template_name = 'whatsapp/list.html'
     queryset = Whatsapp.objects.all().order_by('id')
+    extra_context = {
+        "remove_title": 'Delete'
+    }
 
 
 class WhatsappUpdateView(UpdateView, SuccessMessageMixin):
@@ -30,4 +33,16 @@ class WhatsappUpdateView(UpdateView, SuccessMessageMixin):
     success_message = 'Instance updated successfully'
     extra_context = {
         "button_title": 'Update'
+    }
+
+
+class WhatsappDeleteView(DeleteView, SuccessMessageMixin):
+    success_message = 'Instance deleted successfully'
+    model = Whatsapp
+    template_name = "whatsapp/delete.html"
+    success_url = reverse_lazy('instance_list')
+    extra_context = {
+        'header': 'Remove Instance',
+        'button_title': 'Remove ',
+        'message': 'Are you sure delete instance ',
     }

@@ -18,6 +18,11 @@
                 <td> {{instance.instance}}</td>
                 <td> {{instance.phone_number}}</td>
                 <td> {{instance.token}}</td>
+                <td>
+                    <form method="get" action="{% url "instance_delete" instance.id %}">
+                        {% bootstrap_button remove_title button_type="submit" button_class="btn btn-danger" %}
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>

@@ -36,6 +36,17 @@ services:
             - pgdatabase
             - redis
         command: /app/Docker/django/run_celery_worker.sh
+    flower:
+        restart: always
+        image: djangoapp
+        env_file:
+            - Docker/django/env
+        expose:
+            - 5566
+        depends_on:
+            - pgdatabase
+            - redis
+        command: /app/Docker/django/run_flower.sh
     nginx:
         build:
             context: .
@@ -45,5 +56,6 @@ services:
         depends_on:
             - djangoapp
             - celery
+            - flower
 volumes:
     pgdatabase:

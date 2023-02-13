@@ -8,7 +8,7 @@ class Var(models.Model):
     GENERATED_VARS = ['phone_number', 'message']
     # This vars must be replaced by values in task function(tasks.py)
     name = models.CharField(max_length=30, null=False, unique=True)
-    value = models.CharField(max_length=300, null=True)
+    value = models.CharField(max_length=3000, null=True)
     FAKER_TEXT_LEN = 30
 
     def __str__(self):

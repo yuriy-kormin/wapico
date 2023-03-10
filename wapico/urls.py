@@ -23,5 +23,4 @@ urlpatterns = [
     path('whatsapp/', include('wapico.whatsapp.urls')),
     path('var/', include('wapico.var.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
-
 ]

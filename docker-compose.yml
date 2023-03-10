@@ -1,5 +1,4 @@
 version: "3.9"
-
 services:
     pgdatabase:
         image: postgres:15.1-alpine

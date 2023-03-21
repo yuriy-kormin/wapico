@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wapico.task.urls')),
     path('whatsapp/', include('wapico.whatsapp.urls')),
+    path('schedule/', include('wapico.schedule.urls')),
     path('var/', include('wapico.var.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]

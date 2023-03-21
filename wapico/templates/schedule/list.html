@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% block content %}
+   <h1 class="my-4"> {{ header }}</h1>
+    <a class="nav-link" href="{% url "schedule_create" %}">{% translate "Create schedule" %}</a>
+    <table class = "table table-striped">
+        <tr>
+            <th>minute</th>
+            <th>hour</th>
+            <th>day of week</th>
+            <th>day of month</th>
+            <th>month of year</th>
+        </tr>
+        {% for schedule in object_list %}
+
+        <tr>
+{#            <td><a href = "{% url 'var_update' var.id %}">{{ var.name }}</a></td>#}
+            <td><a href ="{% url "schedule_update" schedule.id %}">{{ schedule.minute }}</a></td>
+            <td>{{ schedule.hour }}</td>
+            <td>{{ schedule.day_of_week }}</td>
+            <td>{{ schedule.day_of_month }}</td>
+            <td>{{ schedule.month_of_year }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% endblock %}

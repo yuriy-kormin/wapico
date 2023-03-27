@@ -53,7 +53,12 @@ class TaskResultView(DetailView):
         result = AsyncResult(taskid)
         # result.save()
         context.update({
-            'full_results': list(result.collect()),
-            'children': result.children
+            'res': [
+                {
+                    'info': res.kwargs,
+                    'status': res.status,
+                    'date': res.date_done,
+                    'response': res.info,
+                } for res in result.children[0] if len(result.children)],
         })
         return context

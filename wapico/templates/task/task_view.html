@@ -21,17 +21,16 @@
                 <div class="col"> task_id </div>
                 <div class="col">{{ taskresult.task_id }}</div>
             </div>
-            <div class="row p-2">
-                <div class="col"> result_data </div>
-                <div class="col">{{ taskresult.result}}</div>
-            </div>
-            <div class="row p-2">
-                <div class="col"> full result_data </div>
-                <div class="col">{{ full_results}}</div>
-            </div>
-            <div class="row p-2">
-                <div class="col"> children </div>
-                <div class="col">{{ children }}</div>
-            </div>
+            <table class="table">
+             {% for r in res %}
+              <tr>
+                {% for k,v in r.items %}
+                  <td>
+                      {{ v }}
+                  </td>
+                {% endfor %}
+              </tr>
+             {% endfor %}
+            </table>
         </div>
 {% endblock %}

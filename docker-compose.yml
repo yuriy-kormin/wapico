@@ -35,6 +35,15 @@ services:
             - pgdatabase
             - redis
         command: /app/Docker/django/run_celery_worker.sh
+    celery-shed:
+        restart: always
+        image: djangoapp
+        env_file:
+            - Docker/django/env
+        depends_on:
+            - pgdatabase
+            - redis
+        command: /app/Docker/django/run_celery_scheduler.sh
     flower:
         restart: always
         image: djangoapp

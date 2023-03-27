@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% block content %}
+    <form method="post" action="">
+    {% csrf_token %}
+        <h1 class="my-4"> {{ header }}</h1>
+{#    {% bootstrap_form form %}#}
+{#            <div class = "form-row">#}
+{#                {%  bootstrap_field form.args form_group_class="form-group" %}#}
+{#                <div class="form-group col-md-2">#}
+{#                    {% bootstrap_field form.time_to %}#}
+{#                </div>#}
+{#            </div>#}
+{##}
+            {% for field in form %}
+                <div class = "form-group">
+                    {% bootstrap_field field %}
+                </div>
+            {% endfor %}
+            <div class = "form-row">
+                 {% bootstrap_button button_title button_type="submit" button_class="mt-3 btn btn-primary" %}
+                {% if button_delete %}
+                    {% bootstrap_button button_delete button_type="link" href="delete" button_class="mt-3 mx-2 btn btn-danger" %}
+                {% endif %}
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -11,10 +11,11 @@
 <body>
 {% include "nav.html" %}
 <main role="main" class="container">
-    <div class="my-3 mt-3 p-3 bg-white rounded shadow-sm overflow-auto">{% bootstrap_messages %}</div>
-
-    {% block content %}
-    {% endblock content %}
+    <div class="my-3 mt-3 p-3 bg-white rounded shadow-sm overflow-auto">
+        {% bootstrap_messages %}
+        {% block content %}
+        {% endblock content %}
+    </div>
 </main>
 </body>
 </html>

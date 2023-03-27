@@ -3,17 +3,17 @@
 {% load bootstrap4 %}
 {% block content %}
    <h1 class="my-4"> {{ header }}</h1>
-    <a class="nav-link" href="{% url "schedule_create" %}">{% translate "Create schedule" %}</a>
+    <a class="nav-link" href="{% url "pt_create" %}">{% translate "Create periodic task" %}</a>
     <table class = "table table-striped">
         <tr>
-            <th>Schedule</th>
+            <th>PeriodicTask</th>
 {#            <th>Loop between(sec)</th>#}
 {#            <th>Schedule</th>#}
         </tr>
-        {% for schedule in object_list %}
+        {% for task in object_list %}
 {#        <tr class="table-{% if task.enabled %}success{% else %}danger{% endif %}">#}
           <tr>
-            <td><a href ="{% url "schedule_update" schedule.id %}">{{ schedule }}</a></td>
+            <td><a href ="{% url "pt_update" task.id %}">{{ task }}</a></td>
 {#            <td>{{ task.args }}</td>#}
 {#            <td> </td>#}
 {#            <td>{{ task.schedule }}</td>#}

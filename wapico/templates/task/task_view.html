@@ -37,12 +37,15 @@
                   <td>{{ r.status }}</td>
                   <td>{{ r.date_done }}</td>
                   <td>
+                  {% if r.resonse|is_list %}
                     <table class="table">
                       {% for line in  r.response %}
                       <tr><td>{{ line }}</td></tr>
                       {% endfor %}
                     </table>
-
+                  {% else %}
+                        {{ r.response }}
+                  {% endif %}
                   </td>
               </tr>
              {% endfor %}

@@ -141,3 +141,4 @@ class PeriodicTaskDeleteView(DeleteView):
 class PeriodicTaskListView(ListView):
     model = PeriodicTask
     template_name = "schedule/pt/list.html"
+    queryset = PeriodicTask.objects.filter(task='task')

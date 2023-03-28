@@ -81,7 +81,8 @@ class ScheduleUpdateView(UpdateView):
 class ScheduleListView(ListView):
     model = CrontabSchedule
     template_name = 'schedule/list.html'
-
+    queryset = CrontabSchedule.objects.exclude(
+        periodictask__task='celery.backend_cleanup')
 
 
 class ScheduleDeleteView(DeleteView):

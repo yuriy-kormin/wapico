@@ -24,11 +24,26 @@
             <table class="table">
              {% for r in res %}
               <tr>
-                {% for k,v in r.items %}
                   <td>
-                      {{ v }}
+{#                      <table class="table">#}
+{#                          {% for k,v in r.info %}#}
+{#                              <tr>#}
+{#                                <td>{{ k }}</td><td>{{ v }}</td>#}
+                              <td>{{ r.info }}</td>
+{#                              </tr>#}
+{#                          {% endfor %}#}
+{#                      </table>#}
                   </td>
-                {% endfor %}
+                  <td>{{ r.status }}</td>
+                  <td>{{ r.date_done }}</td>
+                  <td>
+                    <table class="table">
+                      {% for line in  r.response %}
+                      <tr><td>{{ line }}</td></tr>
+                      {% endfor %}
+                    </table>
+
+                  </td>
               </tr>
              {% endfor %}
             </table>

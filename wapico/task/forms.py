@@ -9,4 +9,3 @@ class SendForm(forms.Form):
     # tt = forms.CharField(label='test')
     time1 = forms.IntegerField(label='from')
     time2 = forms.IntegerField(label='to')
-    pass

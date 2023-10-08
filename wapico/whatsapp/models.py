@@ -5,6 +5,7 @@ from django.db import models
 
 # Create your models here.
 class Whatsapp(models.Model):
+    is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100, null=True)

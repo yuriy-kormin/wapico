@@ -7,6 +7,7 @@ class InstanceForm(forms.ModelForm):
     class Meta:
         model = Whatsapp
         fields = [
+            'is_active',
             'name',
             'instance',
             'phone_number',

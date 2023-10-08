@@ -32,9 +32,9 @@ class SendView(FormView):
 
     def form_valid(self, form):
         result = process_task.delay(
-                form.cleaned_data['time1'],
-                form.cleaned_data['time2'],
-            )
+            form.cleaned_data['time1'],
+            form.cleaned_data['time2'],
+        )
         messages.info(
             self.request, result.get()
         )
@@ -48,7 +48,7 @@ class TaskResultView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj_id = self.kwargs.get('pk')
-        obj = TaskResult.objects.get(pk = obj_id)
+        obj = TaskResult.objects.get(pk=obj_id)
         taskid = obj.task_id
         result = AsyncResult(taskid)
         # result.save()

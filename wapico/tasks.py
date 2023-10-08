@@ -78,7 +78,7 @@ def process_group(id_from, ids, order_pos, time_delta):
 
 @shared_task(name='task')
 def process_task(*time_delta):
-    ids = list(Whatsapp.objects.values_list('id', flat=True))
+    ids = list(Whatsapp.objects.filter(is_active=True).values_list('id', flat=True))
 
     if len(ids) < 2:
         return "error: we need at least 2 instances in whatsapp"

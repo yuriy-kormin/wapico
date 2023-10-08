@@ -1,17 +1,10 @@
 import logging
 
-from django.db import transaction
-from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .forms import PeriodicTaskForm, CrontabForm
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
 
-
-# from .models import Schedule
-# from .models import CustomPeriodicTask
-
-# Create your views here.
 class ScheduleCreateView(CreateView):
     model = CrontabSchedule
     form_class = CrontabForm

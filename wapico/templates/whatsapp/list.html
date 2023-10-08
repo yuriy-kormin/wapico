@@ -6,6 +6,7 @@
     <a class="nav-link" href="{% url "instance_create" %}">{% translate "Create instance" %}</a>
     <table class = "table table-striped">
         <tr>
+            <th></th>
             <th>{% translate "name" %}</th>
             <th>{% translate "instance_id" %}</th>
             <th>{% translate "phone_number" %}</th>
@@ -13,14 +14,15 @@
             <th></th>
         </tr>
         {% for instance in object_list %}
-            <tr>
+            <tr {% if not instance.is_active %}class="text-danger" {% endif %}>
+                <td><input type="checkbox" {% if instance.is_active %}checked{% endif %} disabled></td>
                 <td> <a href ="{% url 'instance_update' instance.id %}">{{instance.name}}</a></td>
                 <td> {{instance.instance}}</td>
                 <td> {{instance.phone_number}}</td>
                 <td> {{instance.token}}</td>
                 <td>
                     <form method="get" action="{% url "instance_delete" instance.id %}">
-                        {% bootstrap_button remove_title button_type="submit" button_class="btn btn-danger" %}
+                        {% bootstrap_button remove_title button_type="submit" button_class="btn btn-danger text-body" %}
                     </form>
                 </td>
             </tr>

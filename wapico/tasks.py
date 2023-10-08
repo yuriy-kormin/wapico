@@ -45,10 +45,8 @@ def make_request(whatsapp_id_from, whatsapp_id_to): #, order_pos, time_delta):
     )
     try:
         response = requests.post(url=url)
-    except:
-        raise Exception()
-    if response.status_code != 200:
-        raise Exception()
+    except Exception as exc:
+        return f'error - {exc}'
     return response.text
 
 

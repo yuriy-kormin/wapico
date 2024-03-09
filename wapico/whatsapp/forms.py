@@ -12,4 +12,5 @@ class InstanceForm(forms.ModelForm):
             'instance',
             'phone_number',
             'token',
+            'group'
         ]

@@ -35,9 +35,8 @@ def compile_url(url, phone_to):
 
 # @shared_task(name='request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True,
 #              retry_kwargs={'max_retries': 5})
-def make_request(whatsapp_id_from, whatsapp_id_to): #, order_pos, time_delta):
-    # sleep(order_pos * randint(*time_delta))
-    instance_to = Whatsapp.objects.get(pk=whatsapp_id_to)
+def make_request(whatsapp_id_from, whatsapp_id_to):
+    instance_to, instance_from = Whatsapp.objects.filter(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
     url = compile_url(
         instance_from.get_url(),
@@ -61,19 +60,6 @@ def process_group(id_from, ids, order_pos, time_delta):
             )
             sleep(randint(*time_delta))
     return result
-    # sleep(order_pos * randint(*time_delta))
-    # result = group([
-    #     make_request.s(
-    #         whatsapp_id_from=id_from,
-    #         whatsapp_id_to=v,
-    #         order_pos=i+1,
-    #         time_delta=time_delta,
-    #     ) for i, v in enumerate(ids) if v != id_from
-    # ])
-    #
-    # result.apply_async(add_to_parent=True)
-
-    # return result
 
 
 @shared_task(name='task')

@@ -12,6 +12,7 @@ class Whatsapp(models.Model):
     instance = models.CharField(max_length=30, null=False, default="")
     phone_number = models.CharField(max_length=30, null=False, default="")
     token = models.CharField(max_length=50, null=False, default="")
+    group = models.PositiveSmallIntegerField(default=1, null=False)
 
     def get_url(self):
         url = Var.objects.get(name='format').value

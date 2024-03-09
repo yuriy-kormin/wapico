@@ -7,6 +7,7 @@
     <table class = "table table-striped">
         <tr>
             <th></th>
+            <th>{% translate "group" %}</th>
             <th>{% translate "name" %}</th>
             <th>{% translate "instance_id" %}</th>
             <th>{% translate "phone_number" %}</th>
@@ -16,6 +17,7 @@
         {% for instance in object_list %}
             <tr {% if not instance.is_active %}class="text-danger" {% endif %}>
                 <td><input type="checkbox" {% if instance.is_active %}checked{% endif %} disabled></td>
+                <td> {{instance.group}}</td>
                 <td> <a href ="{% url 'instance_update' instance.id %}">{{instance.name}}</a></td>
                 <td> {{instance.instance}}</td>
                 <td> {{instance.phone_number}}</td>

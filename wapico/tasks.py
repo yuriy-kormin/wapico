@@ -36,7 +36,7 @@ def compile_url(url, phone_to):
 # @shared_task(name='request', bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_jitter=True,
 #              retry_kwargs={'max_retries': 5})
 def make_request(whatsapp_id_from, whatsapp_id_to):
-    instance_to, instance_from = Whatsapp.objects.filter(pk=whatsapp_id_to)
+    instance_to = Whatsapp.objects.filter(pk=whatsapp_id_to)
     instance_from = Whatsapp.objects.get(pk=whatsapp_id_from)
     url = compile_url(
         instance_from.get_url(),
